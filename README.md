@@ -7,6 +7,7 @@
 
 ```js
 const path = require('path');
+const fs = require('fs');
 const Alipay = require('alipay-node-sdk');
 
 let outTradeId = Date.now().toString();
@@ -16,8 +17,8 @@ let outTradeId = Date.now().toString();
  * @param {Object} opts
  * @param {String} opts.appId  支付宝的appId
  * @param {String} opts.notifyUrl  支付宝服务器主动通知商户服务器里指定的页面http/https路径
- * @param {String} opts.rsaPrivate  商户私钥pem文件路径
- * @param {String} opts.rsaPublic  支付宝公钥pem文件路径
+ * @param {String} opts.rsaPrivate  商户私钥pem文件
+ * @param {String} opts.rsaPublic  支付宝公钥pem文件
  * @param {String} opts.signType   签名方式, 'RSA' or 'RSA2'
  * @param {Boolean} [opts.sandbox] 是否是沙盒环境
  * @constructor
@@ -25,10 +26,10 @@ let outTradeId = Date.now().toString();
 var ali = new Alipay({
     appId: '2016080300159077',
     notifyUrl: 'http://www.xxx.com/callback/alipay',
-    rsaPrivate: path.resolve('./pem/sandbox_private.pem'),
-    rsaPublic: path.resolve('./pem/sandbox_ali_public.pem'),
+    rsaPrivate: fs.readFileSync(path.resolve('./pem/sandbox_private.pem'), 'utf-8'),
+    rsaPublic: fs.readFileSync(path.resolve('./pem/sandbox_ali_public.pem'), 'utf-8'),
     sandbox: true,
-    signType: 'RSA'
+    signType: 'RSA2'
 });
 
 
@@ -228,17 +229,14 @@ ali.billDownloadUrlQuery({
 ```
 
 ## 注意
-```sh
+
 支付宝的公钥下载后需要格式化才能使用(添加首尾、以每行64字符进行断行),参考test/pem/sandbox_ali_public.pem
-```
 
 ## Install
 
 Install with [npm](https://www.npmjs.com/)
 
 ```sh
-$ npm i alipay-node-sdk --save
+$ npm i node-alipay-sdk --save
 ```
 
-## 贡献者
- [@Allidylls](https://github.com/Allidylls)
