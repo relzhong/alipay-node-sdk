@@ -3,6 +3,7 @@
  */
 
 var path = require('path');
+var fs = require('fs');
 var Alipay = require('../lib/alipay');
 
 var outTradeId = Date.now().toString();
@@ -11,10 +12,11 @@ var outTradeId = Date.now().toString();
 var ali = new Alipay({
     appId: '2016080300159077',
     notifyUrl: 'http://www.iobox.me/callback/alipay',
-    rsaPrivate: path.resolve('./pem/sandbox_iobox_private.pem'),
-    rsaPublic: path.resolve('./pem/sandbox_ali_public.pem'),
+    rsaPrivate: fs.readFileSync(path.resolve('./pem/sandbox_iobox_private.pem'), 'utf-8'),
+    rsaPublic: fs.readFileSync(path.resolve('./pem/sandbox_ali_public.pem'), 'utf-8'),
     sandbox: true,
-    signType: 'RSA'
+    signType: 'RSA',
+    openLog: true
 });
 
 ali.query({
