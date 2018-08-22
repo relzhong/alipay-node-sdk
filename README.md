@@ -21,6 +21,8 @@ let outTradeId = Date.now().toString();
  * @param {String} opts.rsaPublic  支付宝公钥pem文件
  * @param {String} opts.signType   签名方式, 'RSA' or 'RSA2'
  * @param {Boolean} [opts.sandbox] 是否是沙盒环境
+ * @param {Boolean} [opts.openLog] 是否开启日志
+ * @param {Object} [opts.logger] 是否指定logger
  * @constructor
  */
 var ali = new Alipay({
@@ -29,7 +31,8 @@ var ali = new Alipay({
     rsaPrivate: fs.readFileSync(path.resolve('./pem/sandbox_private.pem'), 'utf-8'),
     rsaPublic: fs.readFileSync(path.resolve('./pem/sandbox_ali_public.pem'), 'utf-8'),
     sandbox: true,
-    signType: 'RSA2'
+    signType: 'RSA2',
+    openLog: true
 });
 
 
